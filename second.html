@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>demo-app</title>
+    <meta charset="utf-8"/>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="js/module.js"></script>
+    <script src="js/items-controller.js"></script>
+</head>
+
+<body ng-app="app">
+  <h1>AngularJS Book</h1>
+
+  <a href="index.html">Basics, Controllers, Scopes</a>
+
+  <h1>Collections</h1>
+
+  <ol ng-controller="ItemsController">
+    <li ng-repeat="item in items" ng-bind="item.name"></li>
+    <li ng-bind="item.name"></li> <!-- the item variable will not be accessible outside ng-repeat -->
+  </ol>
+
+  <table>
+    <tr ng-repeat="(propertyName, propertyValue) in {b: 'two', a: 1.0, c: 3}">
+      <td ng-bind="propertyName"></td>
+      <td ng-bind="propertyValue"></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <br/>
+
+  <div ng-controller="ItemsController">
+    <div ng-repeat="item in items">
+      {{$index + 1}}. {{item.name}}
+    </div>
+  </div>
+
+  <div ng-controller="ItemsController">
+    <ol>
+      <li ng-repeat="nestedItem in nestedItems">
+        {{nestedItem.name}}
+        <ol>
+          <li ng-repeat="nestedItem in nestedItem.items">
+            {{nestedItem.name}}
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+
+  <div ng-controller="ItemsController">
+    <div ng-repeat="nestedItem in nestedItems" ng-init="outerCount = $index + 1">
+      {{outerCount}}. {{nestedItem.name}}
+
+      <div ng-repeat="nestedItem in nestedItem.items">
+        {{outerCount}}.{{$index + 1}}. {{nestedItem.name}}
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-condensed">
+    <tr>
+      <td>1 === 1</td>
+      <td>{{1 === 1}}</td>
+    </tr>
+    <tr>
+      <td>'1' === '1'</td>
+      <td>{{'1' === '1'}}</td>
+    </tr>
+    <tr>
+      <td>1 === '1'</td>
+      <td>{{1 === '1'}}</td>
+    </tr>
+    <tr>
+      <td>{} === {}</td>
+      <td>{{ {} === {} }}</td>
+    </tr>
+    <tr>
+      <td>{name: 1} === {name: 1}</td>
+      <td>{{ {name: 1} === {name: 1} }}</td> <!-- objects are not equal -->
+    </tr>
+  </table>
+
+  <ol>
+    <li ng-repeat="val in [1, 2, '1']" ng-bind="val"></li>
+    <li ng-repeat="val in [{name: 1}, {name: 2}, {name: 1}]" ng-bind="val.name"></li>
+    <li ng-repeat="val in [1, 2, 1] track by $index" ng-bind="val"></li>
+  </ol>
+
+  <div ng-controller="ItemsController">
+    <h4 ng-pluralize count="otherItems.length" when="{'one': '1 item', 'other' : '{} items'}"></h4>
+
+    <table>
+      <tr ng-repeat="item in otherItems">
+        <td ng-bind="item.name"></td>
+        <td>
+          <button ng-click="destroy(item)">destroy</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <dl ng-controller="ItemsController">
+    <dt ng-repeat-start="item in items">name</dt>
+    <dd ng-bind="item.name"></dd>
+    <dt>price</dt>
+    <dd ng-repeat-end ng-bind="item.price"></dd>
+  </dl>
+
+</body>
+</html>

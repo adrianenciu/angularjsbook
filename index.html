@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>demo-app</title>
+    <meta charset="utf-8"/>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="js/module.js"></script>
+    <script src="js/empty-controller.js"></script>
+    <script src="js/message-controller.js"></script>
+    <script src="js/count-controller.js"></script>
+    <script src="js/addition-controller.js"></script>
+    <script src="js/auth-controller.js"></script>
+    <script src="js/inheritance-controllers.js"></script>
+    <script src="js/sum-controller.js"></script>
+    <script src="js/escape-controller.js"></script>
+</head>
+
+<body ng-app="app">
+  <h1>AngularJS Book</h1>
+
+  <a href="second.html">Collections</a>
+
+  <h1>Basics, Controllers, Scopes</h1>
+
+  <p>Expression \{\{3 + 4\}\} evaluates to {{3 + 4}}</p>
+
+  <p ng-controller="EmptyController"></p>
+
+  <p ng-controller="MessageController">
+    {{message}}
+  </p>
+
+  <p ng-controller="CountController">
+    There are {{count()}} months in a year.
+  </p>
+
+  <div ng-controller="AdditionController">
+    <select ng-model="operand1" ng-options="x for x in options"></select> +
+    <select ng-model="operand2" ng-options="x for x in options"></select> =
+    {{add()}}
+  </div>
+
+  <p ng-controller="AdditionController">
+    {{add2(number, 2)}} is not the same as {{add2(number, "2")}}
+    <br/>
+    2 + 2 + 2 + 2 == {{add2(2, add2(2, add2(2, 2)))}}
+  </p>
+
+  <div ng-controller="AuthController">
+    <p>
+      The secret code is
+      <span ng-show="authorized">0123</span>
+      <span ng-hide="authorized">not for you to see</span>
+    </p>
+    <input type="button" value="toggle" ng-click="toggle()" />
+  </div>
+
+<h3>This is an example of $scope inheritance</h3>
+  <div ng-controller="InfoController">
+    <p>
+      {{info.name}} and {{info.childName}}
+      <br/>
+      <input type="text" ng-model="info.name"/>
+    </p>
+
+    <p ng-controller="InfoChildController">
+      {{info.name}} and {{info.childName}}
+      <br/>
+      <input type="text" ng-model="info.name"/>
+    </p>
+  </div>
+
+  <h3>$watch - Computed properties - scope data derived from other scope data needs special handling to update the UI</h3>
+  <p ng-controller="SumController">
+    <select ng-model="newValue" ng-options="n for n in [1, 2, 3]"></select>
+    <input type="button" value="add" ng-click="add()"/>
+    The sum of {{values}} is {{sum}}.
+  </p>
+
+  <h3>$apply</h3>
+  <div ng-controller="EscapeController">
+    <input type="test" ng-model="message"/>
+    is bound to
+    "<strong ng-bind="message"></strong>".
+    Press <code>esc</code> to clear it!
+  </div>
+</body>
+</html>
