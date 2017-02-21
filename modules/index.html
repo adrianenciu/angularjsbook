@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>demo-app</title>
+    <meta charset="utf-8"/>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="js/module.js"></script>
+    <script src="js/controllers.js"></script>
+</head>
+
+<body ng-app="app">
+  <h1>AngularJS Book</h1>
+
+  <p ng-controller="MessageController">
+    {{message}}
+  </p>
+  <p ng-controller="AnotherMessageController">
+    {{message}}
+  </p>
+  <p ng-controller="LocaleController">
+    Your locale is <strong ng-bind="locale"></strong>
+  </p>
+
+  <p ng-controller="ScoreController">
+    Score: {{score.points}}
+  </p>
+
+  <p ng-controller="ScoreController">
+    <button ng-click="increment()">Increment</button>
+  </p>
+</body>
+</html>
